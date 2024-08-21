@@ -1,7 +1,9 @@
 # ttqm
+
 simple library for handling mqtt message
 
 ### Getting the library
+
 With [Go module](https://github.com/golang/go/wiki/Modules) support, simply add the following import
 
 ```
@@ -22,26 +24,26 @@ $ go get -u github.com/h4lim/ttqm
 package main
 
 import (
-"fmt"
-mqtt "github.com/eclipse/paho.mqtt.golang"
-"github.com/h4lim/ttqm"
+	"fmt"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/h4lim/ttqm"
 )
 
 type CustomMqttManager struct {
-ttqm.MqttManagerContext
+	ttqm.MqttManagerContext
 }
 
 func (m CustomMqttManager) ExecuteMessage(client mqtt.Client, msg mqtt.Message) {
-fmt.Printf("Custom Handling: Topic: %s, Message: %s\n", msg.Topic(), msg.Payload())
+	fmt.Printf("Custom Handling: Topic: %s, Message: %s\n", msg.Topic(), msg.Payload())
 }
 
 func main() {
-// Create your custom MQTT manager
-customManager := CustomMqttManager{}
+	// Create your custom MQTT manager
+	customManager := CustomMqttManager{}
 
 	// Initialize MqttContext with your custom manager
 	mqttContext := ttqm.MqttContext{
-		Broker:      "tcp://localhost:1883",
+		Url:         "localhost",
 		Port:        "1883",
 		ClientId:    "exampleClient",
 		MqttManager: customManager, // Inject your custom manager here
@@ -53,6 +55,7 @@ customManager := CustomMqttManager{}
 	}
 }
 ```
+
 And use the Go command to run the demo:
 
 ```
@@ -60,8 +63,4 @@ And use the Go command to run the demo:
 $ go run main.go
 ```
 
-And use method ExecuteMessage to handling your business logic:
-
-```
-
-```
+And use method ExecuteMessage to handling your business logic

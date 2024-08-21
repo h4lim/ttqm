@@ -26,7 +26,7 @@ func NewMqttConfig(mqttContext MqttContext, mqttManager IMqttManager) IMqttConfi
 func (m mqttConfigContext) Connect() (mqtt.Client, *error) {
 
 	opts := mqtt.NewClientOptions()
-	opts.AddBroker(m.mqttContext.Broker)
+	opts.AddBroker("tcp://" + m.mqttContext.Url + ":" + m.mqttContext.Port)
 	opts.SetClientID(m.mqttContext.ClientId)
 
 	if m.mqttContext.Username != nil && m.mqttContext.Password != nil {

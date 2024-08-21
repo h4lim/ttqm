@@ -1,7 +1,7 @@
 package ttqm
 
 type MqttContext struct {
-	Broker      string
+	Url         string
 	Port        string
 	ClientId    string
 	Username    *string
